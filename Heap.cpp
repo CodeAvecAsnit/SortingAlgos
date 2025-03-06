@@ -1,46 +1,51 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-void Selectionsort(int a[], int size){
-  for(int i = 0 ; i < size ; ++i){
-    int smallest = i;
-    for(int j = i+1 ; j<size;++j ){
-      if(a[smallest]>a[j]){
-        smallest=j;
-      }
+void heapify(int arr[], int n, int i) {
+    int largest = i;  
+    int left = 2 * i + 1;  
+    int right = 2 * i + 2;  
+    if (left < n && arr[left] > arr[largest]){
+        largest = left;
     }
-      swap(a[i],a[smallest]);
-    
-  }
-
+    if (right < n && arr[right] > arr[largest]){
+        largest = right;
+    }
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
 }
 
-void swap(int &a,int &b){
-  int temp=a;
-  a=b;
-  b=temp;
+void heapSort(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--){
+        heapify(arr, n, i);
+    }
+    for (int i = n - 1; i > 0; i--) {
+        swap(arr[0],arr[i]);  
+        heapify(arr,i,0);  
+    }
 }
 
-
-void selectiondisplay(int arr[],int size){
-  cout<<"The data is : ";
-  for(int i=0;i<size;++i){
-    cout<<arr[i]<<" ";
-  }
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
 }
 
-int main(){
-  int n,a[10];
-  cout<<"Enter the size of the data : ";
-  cin>>n;
-  for(int i = 0 ; i < n ; ++i){
-    cout<<"Enter data : ";
-    cin>>a[i];
-  }
-
-  Selectionsort(a,n);
-  selectiondisplay(a,n);
-  return 0;
+int main() {
+    int n;
+    cout << "Enter the size of the array: ";
+    cin >> n;
+    int arr[n]; 
+    for (int i = 0; i < n; i++) {
+        cout << "Enter element " << i + 1 << ": ";
+        cin >> arr[i];
+    }
+    cout << "Array before sorting: ";
+    printArray(arr, n);
+    heapSort(arr, n); 
+    cout << "Array after sorting: ";
+    printArray(arr, n);
+    return 0;
 }
-
-

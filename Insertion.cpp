@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-void Insertionsort(int a[], int size){
+void InsertionSort(int a[], int size){
 for(int i = 1 ; i <size;++i){
   int temp = a[i];
   int j=i-1;
@@ -12,9 +12,6 @@ for(int i = 1 ; i <size;++i){
    a[j+1]=temp;
 }
 }
-
-
-
 
 void Insertiondisplay(int arr[],int size){
   cout<<"The sorted data is : ";
@@ -32,7 +29,7 @@ int main(){
     cin>>a[i];
   }
 
-  Insertionsort(a,n);
+  InsertionSort(a,n);
   cout<<endl<<endl<<endl;
   Insertiondisplay(a,n);
   return 0;

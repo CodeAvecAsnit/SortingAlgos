@@ -1,39 +1,67 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-void MergeSort(int a[], int size){
-  for(int i = 0 ; i < size - 1; ++i){ 
-    int smallest = i;
-    for(int j = i + 1; j < size; ++j){
-      if(a[smallest] > a[j]){
-        smallest = j;
-      }
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    int leftArr[n1], rightArr[n2];
+    for (int i = 0; i < n1; ++i) {
+        leftArr[i] = arr[left + i];
     }
-    if(smallest != i){ 
-      swap(a[i], a[smallest]); 
-  }
+    for (int i = 0; i < n2; ++i) {
+        rightArr[i] = arr[mid + 1 + i];
+    }
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (leftArr[i] <= rightArr[j]) { 
+            arr[k]=leftArr[i];
+            ++i;
+        } else {
+            arr[k] =rightArr[j];
+            ++j;
+        }
+        ++k;
+    }
+    while (i < n1) {
+        arr[k] = leftArr[i];
+        ++i;
+        ++k;
+    }
+    while (j < n2) {
+        arr[k] = rightArr[j];
+        ++j;
+        ++k;
+    }
 }
+
+void mergeSort(int arr[], int start, int end) {
+    if (start >= end) return; 
+    int mid = start + (end - start) / 2;
+    mergeSort(arr, start, mid);
+    mergeSort(arr, mid + 1, end);
+    merge(arr, start, mid, end);
 }
 
-
-void MergeDisplay(int arr[], int size){
-  cout << "The data is : ";
-  for(int i = 0; i < size; ++i){
-    cout << arr[i] << " ";
-  }
-  cout << endl;
+void printArray(int arr[], int len) {
+    for (int i = 0; i < len; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 }
 
-int main(){
-  int n, a[10];
-  cout << "Enter the size of the data : ";
-  cin >> n;
-  for(int i = 0; i < n; ++i){
-    cout << "Enter data : ";
-    cin >> a[i];
-  }
-
-  MergeSort(a, n);
-  MergeDisplay(a, n);
-  return 0;
+int main() {
+    int n;
+    cout << "Enter the size of the array: ";
+    cin >> n;
+    int arr[n]; 
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter data: ";
+        cin >> arr[i];
+    }
+    cout << "Array before sorting: ";
+    printArray(arr, n);
+    mergeSort(arr, 0, n - 1);  
+    cout << "Array after sorting: ";
+    printArray(arr, n);
+    return 0;
 }

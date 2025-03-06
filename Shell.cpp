@@ -31,7 +31,7 @@ int main(){
     cin >> a[i];
   }
 
-  ShelSort(a, n);
+  ShellSort(a, n);
   ShellDisplay(a, n);
   return 0;
 }

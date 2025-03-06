@@ -1,47 +1,41 @@
 #include<iostream>
 using namespace std;
+int counter = 0;
 
-void Selectionsort(int a[], int size){
-  for(int i = 0 ; i < size ; ++i){
-    int smallest = i;
-    for(int j = i+1 ; j<size;++j ){
-      if(a[smallest]>a[j]){
-        smallest=j;
-      }
-      swap(a[i],a[smallest]);
-    }
+void display(int arr[], int len){
+  for(int i = 0 ; i < len; ++i){
+    cout<<arr[i]<<" ";
   }
-
+  cout<<endl;
 }
 
 void swap(int &a,int &b){
-  int temp=a;
-  a=b;
-  b=temp;
+  int temp = a ;
+  a = b ;
+  b = temp;
 }
 
-
-void selectiondisplay(int arr[],int size){
-  cout<<"The data is : ";
-  for(int i=0;i<size;++i){
-    cout<<arr[i]<<" ";
+void SelectionSort(int arr[],int len){
+  for(int i = 0 ; i < len-1 ;++i){
+    int SIndex = i;
+    for ( int j= i+1;j<len;++j){
+      if(arr[SIndex]>arr[j]){
+        SIndex=j;
+      }
+    }
+    if(SIndex!=i){
+      swap(arr[SIndex],arr[i]);
+    }
   }
 }
 
 int main(){
-  int n,a[10];
-  cout<<endl<<endl<<endl;
-  cout<<"Enter the size of the data : ";
-  cin>>n;
-  cout<<endl<<endl;
-  for(int i = 0 ; i < n ; ++i){
-    cout<<"Enter data : ";
-    cin>>a[i];
-  }
-
-  Selectionsort(a,n);
-  selectiondisplay(a,n);
+  int Sorting_arr[]={2,6,7,1,90,99,45,44,23,22,32,33};
+  cout<<"Array before Sorting : ";
+  int len = sizeof(Sorting_arr)/sizeof(Sorting_arr[0]);
+  display(Sorting_arr,len);
+  SelectionSort(Sorting_arr,len);
+  cout<<endl<<"Array after Sorting : ";
+  display(Sorting_arr,len);
   return 0;
 }
-
-
